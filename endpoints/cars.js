@@ -134,7 +134,7 @@ router.post('/car', (req, res) => {
 
 ///////////////////PUT////////////////////
 ///Guardar un carro en la base de Datos///
-router.put('/car/:id', (req, res) => {
+router.put('/ca/:id', (req, res) => {
     // res.send('Agregando un carro ...')
     const id = req.params.id
     const {
