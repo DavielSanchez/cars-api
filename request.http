@@ -35,5 +35,6 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/api/popular/660b81a0414c2a3e032c2193 HTTP/1.1
+Content-Type: application/json
 
 

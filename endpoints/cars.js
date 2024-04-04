@@ -2,10 +2,34 @@ const express = require('express')
 const carSchema = require('./models/cars')
 const app = express();
 const router = express.Router();
+const { swaggerDocs } = require("../Swagger")
+
 
 
 ////////////////////////GET////////////////////////
 ///Obtener todos los carros de la base de datos///
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     tags:
+ *       - Empty
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
 router.get('/cars', (req, res) => {
     carSchema
         .find()
@@ -134,7 +158,7 @@ router.post('/car', (req, res) => {
 
 ///////////////////PUT////////////////////
 ///Guardar un carro en la base de Datos///
-router.put('/ca/:id', (req, res) => {
+router.put('/car/:id', (req, res) => {
     // res.send('Agregando un carro ...')
     const id = req.params.id
     const {

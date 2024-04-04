@@ -1,6 +1,8 @@
 const express = require('express')
-const { default: mongoose, connect } = require('mongoose')
 const dotenv = require('dotenv')
+const bodyParser = require("body-parser")
+const { swaggerDocs } = require("./Swagger")
+const { mongoConnection } = require('./db')
 
 
 
@@ -13,27 +15,15 @@ const Novedades = require('./endpoints/novedades')
 
 // Server run //
 const app = express()
-const port = 3000
 
 ///////////////
 
 
 dotenv.config();
+mongoConnection(process.env.MONGODB_URI);
 
 
-// Mongo DB and mongoose connection and validation //
-mongoose.connect(process.env.MONGODB_URI);
 
-const connection = mongoose.connection;
-
-connection.once('open', () => {
-    console.log('Conexion a la base de datos exitosa')
-})
-
-connection.on('error', (err) => {
-        console.log('Conexion a la base de datos Fallida', err)
-    })
-    ////////////////////////////////////////////////////
 
 // MIDDLEWARES //
 app.use(express.json())
@@ -43,8 +33,31 @@ app.use('/api', Novedades)
 
 ////////////////
 
-
 // Routing //
+
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     tags:
+ *       - Empty
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
+
 app.get('/', (req, res) => {
         res.json({
             response: 'success'
@@ -52,4 +65,7 @@ app.get('/', (req, res) => {
     })
     ////////////
 
-app.listen(process.env.PORT || port, () => console.log(`Running on Port: ${port}`))
+app.listen(process.env.PORT, () => {
+    console.log(`Running on Port: ${process.env.PORT}`);
+    swaggerDocs(app, process.env.PORT);
+})

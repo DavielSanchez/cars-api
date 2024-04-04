@@ -15,6 +15,31 @@ const carSchema = mongoose.Schema({
     Usage: { type: String, required: false },
     Doors: { type: String, required: false },
     Passengers: { type: String, required: false }
+
+    /**
+     * @openapi
+     * /:
+     *   get:
+     *     tags:
+     *       - Empty
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: string
+     *                   example: OK
+     *                 data:
+     *                   type: array 
+     *                   items: 
+     *                     type: object
+     */
 })
+
+
 
 module.exports = mongoose.model('Cars', carSchema)
