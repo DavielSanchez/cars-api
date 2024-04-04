@@ -27,9 +27,9 @@ mongoConnection(process.env.MONGODB_URI);
 
 // MIDDLEWARES //
 app.use(express.json())
-app.use('/api', Cars)
-app.use('/api', Popular)
-app.use('/api', Novedades)
+app.use('/', Cars)
+app.use('/', Popular)
+app.use('/', Novedades)
 
 ////////////////
 
