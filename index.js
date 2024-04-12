@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const bodyParser = require("body-parser")
 const { swaggerDocs } = require("./Swagger")
 const { mongoConnection } = require('./db')
+const cors = require('cors')
 
 
 
@@ -24,8 +25,8 @@ mongoConnection(process.env.MONGODB_URI);
 
 
 
-
 // MIDDLEWARES //
+app.use(cors())
 app.use(express.json())
 app.use('/', Cars)
 app.use('/', Popular)
@@ -64,6 +65,8 @@ app.get('/', (req, res) => {
         })
     })
     ////////////
+
+
 
 app.listen(process.env.PORT, () => {
     console.log(`Running on Port: ${process.env.PORT}`);
